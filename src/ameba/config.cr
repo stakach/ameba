@@ -94,8 +94,9 @@ class Ameba::Config
     @excluded = load_array_section(config, "Excluded")
     @globs = load_array_section(config, "Globs", default_globs)
 
-    return unless formatter_name = load_formatter_name(config)
-    self.formatter = formatter_name
+    if formatter_name = load_formatter_name(config)
+      self.formatter = formatter_name
+    end
   end
 
   # Loads YAML configuration file by `path`.
@@ -117,8 +118,8 @@ class Ameba::Config
 
   protected def self.read_config(path = nil)
     if path
-      raise ArgumentError.new("Config file does not exist #{path}") unless File.exists?(path)
-      return File.read(path)
+      return File.read(path) if File.exists?(path)
+      raise "Config file does not exist"
     end
     each_config_path do |config_path|
       return File.read(config_path) if File.exists?(config_path)
