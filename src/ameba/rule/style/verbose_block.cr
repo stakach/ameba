@@ -39,8 +39,8 @@ module Ameba::Rule::Style
       exclude_operators true
       exclude_setters false
 
-      max_line_length : Int32? = nil # 100
-      max_length : Int32? = 50
+      max_line_length : Int32? = nil # ameba:disable Lint/UselessAssign
+      max_length : Int32? = 50       # ameba:disable Lint/UselessAssign
     end
 
     MSG          = "Use short block notation instead: `%s`"
