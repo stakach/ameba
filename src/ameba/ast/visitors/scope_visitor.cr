@@ -174,9 +174,7 @@ module Ameba::AST
       when @current_scope.def?
         if node.name.in?(SPECIAL_NODE_NAMES) && node.args.empty?
           @current_scope.arguments.each do |arg|
-            variable = arg.variable
-
-            ref = variable.reference(variable.node, @current_scope)
+            ref = arg.variable.reference(@current_scope)
             ref.explicit = false
           end
         end
